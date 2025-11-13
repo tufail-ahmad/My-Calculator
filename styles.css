@@ -109,7 +109,6 @@ body.darkmode {
     -5px -5px 20px var(--shodow-color2);
   width: 300px;
   padding: 2rem 0 1rem 0;
-  margin: 2% auto; /* top-bottom 4%, left-right auto */
   display: flex;
   flex-direction: column;
 }
@@ -186,5 +185,4 @@ body.darkmode {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
