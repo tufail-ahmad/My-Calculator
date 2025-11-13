@@ -54,12 +54,18 @@ window.addEventListener("DOMContentLoaded", () => {
 let display1 = document.querySelector("#display1");
 let display2 = document.querySelector("#display2");
 let Buttons = document.querySelectorAll(".btn");
+const bracketBtn = document.getElementById("bracket-btn");
+const percentBtn = document.getElementById("percent-btn");
 let displayValue = "";
 
 let buttonsArr = Array.from(Buttons);
 console.log(buttonsArr);
 
 buttonsArr.forEach((button) => {
+  // Skip bracketBtn here — bracket has its own listener
+  if (button.id === "bracket-btn") return;
+  // Skip percentBtn here — percent has its own listener
+  if (button.id === "percent-btn") return;
   button.addEventListener("click", (e) => {
     if (e.target.innerHTML === "=") {
       displayValue = eval(displayValue);
@@ -79,4 +85,68 @@ buttonsArr.forEach((button) => {
       display1.value = "";
     }
   });
+});
+
+bracketBtn.addEventListener("click", () => {
+  const openCount = (displayValue.match(/\(/g) || []).length;
+  const closeCount = (displayValue.match(/\)/g) || []).length;
+  const lastChar = displayValue.slice(-1);
+
+  if (
+    openCount === closeCount ||
+    lastChar === "(" ||
+    lastChar === "" ||
+    /[+\-*/]/.test(lastChar)
+  ) {
+    // Agar brackets equal hain ya last char operator hai, to "(" lagao
+    displayValue += "(";
+  } else if (openCount > closeCount && /[0-9)]/.test(lastChar)) {
+    // Agar open zyada hain aur last char number ya ")" hai, to ")" lagao
+    displayValue += ")";
+  }
+
+  display2.value = displayValue;
+  display1.value = "";
+});
+
+percentBtn.addEventListener("click", () => {
+  // Try to detect pattern like 200*20 or 500+10 etc.
+  const match = displayValue.match(/(\d+\.?\d*)([+\-*/])(\d+\.?\d*)$/);
+
+  if (match) {
+    const base = parseFloat(match[1]); // first number (e.g. 200)
+    const operator = match[2]; // operator (e.g. *)
+    const percentNum = parseFloat(match[3]); // second number (e.g. 20)
+
+    let result;
+
+    switch (operator) {
+      case "+":
+        result = base + (base * percentNum) / 100;
+        break;
+      case "-":
+        result = base - (base * percentNum) / 100;
+        break;
+      case "*":
+        result = base * (percentNum / 100);
+        break;
+      case "/":
+        result = base / (percentNum / 100);
+        break;
+      default:
+        result = base;
+    }
+
+    displayValue = result.toString();
+  } else {
+    // If only a single number present, just convert to percent (÷100)
+    const singleMatch = displayValue.match(/(\d+\.?\d*)$/);
+    if (singleMatch) {
+      const num = parseFloat(singleMatch[1]);
+      displayValue = (num / 100).toString();
+    }
+  }
+
+  display1.value = displayValue;
+  display2.value = "";
 });
