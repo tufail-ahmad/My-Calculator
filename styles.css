@@ -1,0 +1,149 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* toggle button styles*/
+#checkbox {
+  visibility: hidden;
+}
+
+.toggle-label {
+  width: 60px;
+  height: 23px;
+  box-shadow: 1px 1px 2px var(--shadow-color),
+    -1px -1px 2px var(--shodow-color2);
+  display: inline-block;
+  border-radius: 60px;
+  position: relative;
+  left: 210px;
+  top: -5px;
+}
+
+.toggle-ball {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  box-shadow: 1px 1px 2px var(--shadow-color),
+    -1px -1px 2px var(--shodow-color2);
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  transition: all 0.2s linear;
+}
+
+#checkbox:checked + .toggle-label .js-toggle-ball {
+  transform: translateX(15px);
+  background-color: #545252;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2),
+    -2px -2px 2px rgba(255, 255, 255, 0.2);
+  position: relative;
+  top: -3.5px;
+}
+
+.mode-btn {
+  padding: 5px;
+  background: transparent;
+  position: relative;
+  right: -138px;
+  top: 10px;
+  border-radius: 50%;
+
+  border: none;
+}
+
+.toggle-ball svg:last-child {
+  position: relative;
+  top: 2px;
+  left: 2px;
+  fill: dodgerblue;
+}
+
+.toggle-ball svg:first-child {
+  display: none;
+}
+
+/* Light Mode Styles */
+body.lightmode {
+  background-color: #ffffff;
+  --bg-color: white;
+  --shodow-color2: rgba(245, 245, 245, 0.9);
+  --shadow-color: rgba(52, 204, 255, 0.4);
+  --operator-color: dodgerblue;
+  --display2-text-color: gray;
+}
+
+/* Dark Mode styles*/
+body.darkmode {
+  background-color: darkgray;
+  --bg-color: #545252;
+  --shodow-color2: rgb(245, 245, 245);
+  --shadow-color: rgb(0, 0, 0);
+  --operator-color: darkgray;
+  --display2-text-color: white;
+}
+
+:root {
+  font-size: 62.5%;
+}
+
+/* main styles*/
+#cal-container {
+  border-radius: 2rem;
+  box-shadow: 5px 5px 20px var(--shadow-color),
+    -5px -5px 20px var(--shodow-color2);
+  width: 300px;
+  padding: 2rem 0;
+  margin-left: 40%;
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+}
+
+#display1 {
+  font-size: 5rem;
+  color: var(--operator-color);
+  text-align: right;
+  padding-right: 1rem;
+  border: none;
+}
+
+#display2 {
+  font-size: 2rem;
+  color: var(--display2-text-color);
+  text-align: right;
+  padding-right: 1.2rem;
+  border: none;
+}
+
+#buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 3%;
+  margin-top: 1rem;
+}
+
+.btn {
+  background: transparent;
+  box-shadow: 1px 1px 2px var(--shadow-color),
+    -1px -1px 2px var(--shodow-color2);
+  border: none;
+  border-radius: 50%;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: 0.3rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.operator {
+  color: var(--operator-color);
+}
+
+#backspace-btn svg {
+  position: relative;
+  top: 0.3rem;
+  right: 0.1rem;
+  fill: var(--operator-color);
+}
